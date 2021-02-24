@@ -26,7 +26,8 @@ public class ElevatorConfiguration {
   private int defaultFloor;
 
   @Bean
-  public Map<Integer, List<Elevator>> constructElevatorOnFloorMap(List<Elevator> elevators) {
+  public Map<Integer, List<Elevator>> constructElevatorOnFloorMap(Map<Integer, Elevator> elevatorMap) {
+    final var elevators = new ArrayList<>(elevatorMap.values());
     var map = new ConcurrentHashMap<Integer, List<Elevator>>();
 
     for (int i = bottomFloor; i <= topFloor; i++) {
@@ -57,11 +58,6 @@ public class ElevatorConfiguration {
     }
 
     return elevators;
-  }
-
-  @Bean
-  public List<Elevator> constructElevatorList(Map<Integer, Elevator> elevatorMap) {
-    return new ArrayList<>(elevatorMap.values());
   }
 
   private void validateElevatorNumberOrThrow(int numberOfElevators) {

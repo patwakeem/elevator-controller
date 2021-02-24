@@ -6,14 +6,11 @@ import com.tingco.codechallenge.elevator.metrics.MetricTags;
 import com.tingco.codechallenge.elevator.metrics.MetricsRecorder;
 import com.tingco.codechallenge.elevator.model.Direction;
 import com.tingco.codechallenge.elevator.model.Elevator;
-import com.tingco.codechallenge.elevator.model.ElevatorWithScore;
 import com.tingco.codechallenge.elevator.model.dto.ElevatorCallDto;
 import com.tingco.codechallenge.elevator.model.dto.ElevatorUpdateDto;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -40,7 +37,8 @@ public class ElevatorServiceImpl implements ElevatorService {
     );
 
     if (foundElevator == null) {
-      foundElevator = findBestElevator(dto);
+      var resolver = new ElevatorResolver();
+      foundElevator = resolver.findBestElevator(listElevators(), dto);
     }
 
 //  If our requester is on another floor we have to pick them up first.
@@ -52,36 +50,6 @@ public class ElevatorServiceImpl implements ElevatorService {
     foundElevator.addStop(dto.getTargetFloor());
     recorder.incrementCounter(MetricTags.ELEVATORS_CALLED);
     return foundElevator;
-  }
-
-  private Elevator findBestElevator(ElevatorCallDto callDto) {
-//    find any elevators not in use. if found return immediately
-    final var elevators = listElevators();
-    final var elevatorOpt = findElevatorNotInUse(elevators);
-
-    if (elevatorOpt.isPresent()) {
-      return elevatorOpt.get();
-    }
-
-//    find an elevator that is reasonably close and doesn't have too many other stops
-    List<ElevatorWithScore> elevatorWithScores = new ArrayList<>();
-
-    for (Elevator elevator : elevators) {
-      var score = Math.abs(callDto.getCurrentFloor() - elevator.getCurrentFloor());
-      score += elevator.getStopFloors().size();
-      var elevatorWithScore = new ElevatorWithScore();
-      elevatorWithScore.setElevatorId(elevator.getId());
-      elevatorWithScore.setElevatorScore(score);
-      elevatorWithScore.setElevator(elevator);
-      elevatorWithScores.add(elevatorWithScore);
-    }
-
-    elevatorWithScores.sort(Comparator.comparingInt(ElevatorWithScore::getElevatorScore));
-    return elevatorOpt.orElse(elevatorWithScores.get(0).getElevator());
-  }
-
-  private Optional<Elevator> findElevatorNotInUse(List<Elevator> elevators) {
-    return elevators.stream().filter(x -> !x.isInUse()).findFirst();
   }
 
   private Elevator findElevatorGoingInSameDirection(List<Elevator> elevators, Direction wantedDirection) {
@@ -131,5 +99,13 @@ public class ElevatorServiceImpl implements ElevatorService {
           String.format("Requested floor %s is out of range.", floor)
       );
     }
+  }
+
+  protected void setTopFloor(int topFloor) {
+    this.topFloor = topFloor;
+  }
+
+  protected void setBottomFloor(int bottomFloor) {
+    this.bottomFloor = bottomFloor;
   }
 }

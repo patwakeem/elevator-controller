@@ -2,7 +2,6 @@ package com.tingco.codechallenge.elevator.configuration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.tingco.codechallenge.elevator.exception.ConfigurationException;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,15 +39,5 @@ class ElevatorConfigurationTest {
     elevatorConfiguration.setNumberOfElevators(0);
 
     assertThrows(ConfigurationException.class, () -> elevatorConfiguration.constructElevatorMap());
-  }
-
-  @Test
-  void elevatorListIsSetFromMap() {
-    elevatorConfiguration.setNumberOfElevators(1);
-    final var map = elevatorConfiguration.constructElevatorMap();
-
-    final var elevators = elevatorConfiguration.constructElevatorList(map);
-
-    assertTrue(map.values().containsAll(elevators));
   }
 }
