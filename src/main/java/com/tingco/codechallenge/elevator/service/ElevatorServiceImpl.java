@@ -105,6 +105,12 @@ public class ElevatorServiceImpl implements ElevatorService {
     elevatorOnFloorMap.get(updateDto.getCurrentFloor()).add(elevator);
   }
 
+  @Override
+  public void recallElevatorToFloor(int elevatorId, int floor) {
+    final var elevator = elevatorMap.get(elevatorId);
+    elevator.addStop(floor);
+  }
+
   private void validateElevator(int elevatorId) {
     if (elevatorId > elevatorMap.size()) {
       throw new InvalidElevatorException("Could not find elevator with ID: " + elevatorId);

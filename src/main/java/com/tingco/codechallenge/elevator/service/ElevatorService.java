@@ -27,4 +27,10 @@ public interface ElevatorService {
    * Keeps track of where elevators are and the stops they have.
    */
   void updateElevator(ElevatorUpdateDto updateDto);
+
+  /**
+   * Recalls an elevator to a floor directly.
+   * For use by elevator recall system.
+   */
+  void recallElevatorToFloor(int elevatorId, int floor);
 }

@@ -1,7 +1,6 @@
 package com.tingco.codechallenge.elevator.service;
 
 import com.tingco.codechallenge.elevator.model.Elevator;
-import com.tingco.codechallenge.elevator.model.dto.ElevatorUpdateDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,13 +22,9 @@ public class ElevatorManager {
     log.debug("Beginning elevator recall routine. Elevators not in use will be recalled to floor: {}", defaultFloor);
 
     for (Elevator elevator : service.listElevators()) {
-//      TODO fix me, error on recalling elevator
       if (!elevator.isInUse() && elevator.getCurrentFloor() != defaultFloor) {
         log.debug("Elevator with ID {} is not in use. Will be recalled to default floor.", elevator.getId());
-        final var elevatorUpdateDto = new ElevatorUpdateDto();
-        elevatorUpdateDto.setElevatorId(elevator.getId());
-        elevatorUpdateDto.setCurrentFloor(defaultFloor);
-        service.updateElevator(elevatorUpdateDto);
+        service.recallElevatorToFloor(elevator.getId(), defaultFloor);
       }
     }
   }
