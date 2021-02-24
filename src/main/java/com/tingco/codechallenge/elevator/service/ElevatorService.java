@@ -3,12 +3,6 @@ package com.tingco.codechallenge.elevator.service;
 import com.tingco.codechallenge.elevator.api.Elevator;
 import java.util.List;
 
-
-/**
- * Interface for the Elevator Controller.
- *
- * @author Sven Wesley
- */
 interface ElevatorService {
 
   /**
