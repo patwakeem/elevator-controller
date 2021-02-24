@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Sven Wesley
  */
 @RestController
-@RequestMapping("/rest/v1")
+@RequestMapping("/v1")
 public final class ElevatorController {
 
   /**
