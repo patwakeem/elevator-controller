@@ -13,14 +13,14 @@ import lombok.extern.slf4j.Slf4j;
 public class ElevatorResolver {
 
   public Elevator findBestElevator(List<Elevator> elevators, ElevatorCallDto callDto) {
-//    find any elevators not in use. if found return immediately
+//    Find any elevators not in use. If found return immediately
     final var elevatorOpt = findElevatorNotInUse(elevators);
 
     if (elevatorOpt.isPresent()) {
       return elevatorOpt.get();
     }
 
-//    find an elevator that is reasonably close and doesn't have too many other stops
+//    Find an elevator that is reasonably close and doesn't have too many other stops
     List<ElevatorWithScore> elevatorWithScores = new ArrayList<>();
 
     for (Elevator elevator : elevators) {
