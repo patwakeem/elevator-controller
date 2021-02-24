@@ -2,6 +2,8 @@ package com.tingco.codechallenge.elevator.service;
 
 import com.tingco.codechallenge.elevator.exception.InvalidElevatorException;
 import com.tingco.codechallenge.elevator.exception.InvalidElevatorFloorException;
+import com.tingco.codechallenge.elevator.metrics.MetricTags;
+import com.tingco.codechallenge.elevator.metrics.MetricsRecorder;
 import com.tingco.codechallenge.elevator.model.Direction;
 import com.tingco.codechallenge.elevator.model.Elevator;
 import com.tingco.codechallenge.elevator.model.ElevatorWithScore;
@@ -28,6 +30,7 @@ public class ElevatorServiceImpl implements ElevatorService {
 
   private final Map<Integer, Elevator> elevatorMap;
   private final Map<Integer, List<Elevator>> elevatorOnFloorMap;
+  private final MetricsRecorder recorder;
 
   @Override
   public Elevator requestElevator(ElevatorCallDto dto) {
@@ -47,6 +50,7 @@ public class ElevatorServiceImpl implements ElevatorService {
     }
 
     foundElevator.addStop(dto.getTargetFloor());
+    recorder.incrementCounter(MetricTags.ELEVATORS_CALLED);
     return foundElevator;
   }
 
@@ -103,22 +107,26 @@ public class ElevatorServiceImpl implements ElevatorService {
     elevatorOnFloorMap.get(elevator.getCurrentFloor()).remove(elevator);
     elevator.updateToFloor(updateDto.getCurrentFloor());
     elevatorOnFloorMap.get(updateDto.getCurrentFloor()).add(elevator);
+    recorder.incrementCounter(MetricTags.ELEVATORS_UPDATED);
   }
 
   @Override
   public void recallElevatorToFloor(int elevatorId, int floor) {
     final var elevator = elevatorMap.get(elevatorId);
     elevator.addStop(floor);
+    recorder.incrementCounter(MetricTags.ELEVATORS_RECALLED);
   }
 
   private void validateElevator(int elevatorId) {
     if (elevatorId > elevatorMap.size()) {
+      recorder.incrementCounter(MetricTags.ELEVATOR_INVALID);
       throw new InvalidElevatorException("Could not find elevator with ID: " + elevatorId);
     }
   }
 
   private void validateFloor(int floor) {
     if (floor < bottomFloor || floor > topFloor) {
+      recorder.incrementCounter(MetricTags.FLOOR_INVALID);
       throw new InvalidElevatorFloorException(
           String.format("Requested floor %s is out of range.", floor)
       );

@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+@Slf4j
 @Configuration
 public class ElevatorConfiguration {
 
@@ -42,6 +44,7 @@ public class ElevatorConfiguration {
   public Map<Integer, Elevator> constructElevatorMap() {
     validateElevatorNumberOrThrow(numberOfElevators);
     var elevators = new ConcurrentHashMap<Integer, Elevator>();
+    log.info("Initializing {} elevators...", numberOfElevators);
 
     for (int i = 0; i < numberOfElevators; i++) {
       var elevator = new Elevator(
