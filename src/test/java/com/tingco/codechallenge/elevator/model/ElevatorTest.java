@@ -10,9 +10,16 @@ class ElevatorTest {
 
   @Test
   void elevatorDirectionIsResolvedCorrectly() {
-    assertEquals(Direction.DOWN, new Elevator(0, 1).getDirection());
-    assertEquals(Direction.UP, new Elevator(0, 1).getDirection());
-    assertEquals(Direction.NONE, new Elevator(0, 1).getDirection());
+    var downElevator = new Elevator(0, 1);
+    var upElevator = new Elevator(0, 1);
+    var noneElevator = new Elevator(0, 0);
+
+    downElevator.addStop(-1);
+    upElevator.addStop(10);
+
+    assertEquals(Direction.DOWN, downElevator.getDirection());
+    assertEquals(Direction.UP, upElevator.getDirection());
+    assertEquals(Direction.NONE, noneElevator.getDirection());
   }
 
   @Test
@@ -29,9 +36,29 @@ class ElevatorTest {
   void elevatorInUseIsCorrectlyMarkedAsSuch() {
     var elevator = new Elevator(
         0,
-        1
+        0
     );
+    elevator.addStop(1);
 
     assertTrue(elevator.isInUse());
+  }
+
+  @Test
+  void addStopIgnoresAddWhenCurrentFloorIsStop() {
+    var elevator = new Elevator(0, 0);
+
+    elevator.addStop(0);
+
+    assertTrue(elevator.getStopFloors().isEmpty());
+  }
+
+  @Test
+  void elevatorIsUpdatedToFloorWhenItReachesNewFloor() {
+    var elevator = new Elevator(0, 0);
+
+    elevator.addStop(1);
+    elevator.updateToFloor(1);
+
+    assertTrue(elevator.getStopFloors().isEmpty());
   }
 }

@@ -19,6 +19,29 @@ com.tingco.elevator.default-floor, the main floor of the building (usually the l
 
 com.tingco.elevator.elevator-reset-interval-ms, The elevator system will recall elevators which are not in use to the default floor. Set this value to the interval (in milliseconds) that you want this recall to happen at.
 
+###Internal Properties - application.properties
+
+logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter, set this to DEBUG if you want to see detailed request logs.
+
+logging.level.com.tingco.codechallenge.elevator, application log level.
+
+management.server.port, port for actuator server.
+
+management.endpoints.web.exposure.include, opens access for endpoints with Spring Actuator.
+
+management.endpoint.health.enabled, enables health endpoint.
+
+management.endpoint.health.show-details, enables health endpoint details (disk space).
+
+spring.jackson.serialization.indent_output, enables pretty json responses.
+
+management.metrics.export.statsd.enabled, enables statsd metrics exporting.
+
+###Running a Coverage Check
+Building a container is as simple as running the following maven goal:
+verify
+
 ###Building a Container
-Building a container is as simple as running the following:
-./mvnw spring-boot:build-image
+Building a container is as simple as running the following maven goal:
+spring-boot:build-image
+

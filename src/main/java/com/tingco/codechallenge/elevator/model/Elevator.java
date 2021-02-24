@@ -35,7 +35,7 @@ public class Elevator {
   }
 
   public void addStop(int floor) {
-    if (stopFloors.isEmpty() || stopFloors.get(0) != floor) {
+    if (floor != currentFloor) {
       stopFloors.add(floor);
     }
   }
