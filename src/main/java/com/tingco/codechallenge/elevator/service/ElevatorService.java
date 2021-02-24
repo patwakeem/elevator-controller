@@ -19,7 +19,7 @@ public interface ElevatorService {
    *
    * @return A List with all {@link Elevator} objects.
    */
-  List<Elevator> getElevators();
+  List<Elevator> listElevators();
 
   /**
    * Telling the controller that the given elevator is free for new operations.

@@ -4,10 +4,12 @@ import com.tingco.codechallenge.elevator.exception.InvalidElevatorCallRequestExc
 import com.tingco.codechallenge.elevator.model.Elevator;
 import com.tingco.codechallenge.elevator.model.dto.ElevatorCallDto;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ElevatorServiceImpl implements ElevatorService {
 
   @Value("${com.tingco.elevator.top-floor}")
@@ -16,6 +18,8 @@ public class ElevatorServiceImpl implements ElevatorService {
   @Value("${com.tingco.elevator.bottom-floor}")
   private int bottomFloor;
 
+  private final List<Elevator> elevators;
+
   @Override
   public Elevator requestElevator(ElevatorCallDto dto) {
     validateCallRequestOrThrow(dto);
@@ -23,8 +27,8 @@ public class ElevatorServiceImpl implements ElevatorService {
   }
 
   @Override
-  public List<Elevator> getElevators() {
-    return null;
+  public List<Elevator> listElevators() {
+    return elevators;
   }
 
   @Override

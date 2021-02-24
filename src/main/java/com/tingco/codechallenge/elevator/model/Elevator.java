@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.tingco.codechallenge.elevator.util.DirectionResolver;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -16,11 +18,15 @@ public class Elevator {
   private int id;
   private int currentFloor;
   private int targetFloor;
-  private Direction direction;
 
   @JsonGetter("in_use")
   public boolean isInUse() {
-    return currentFloor == targetFloor;
+    return currentFloor != targetFloor;
+  }
+
+  @JsonGetter("direction")
+  public Direction getDirection() {
+    return DirectionResolver.resolveDirectionFromFloors(currentFloor, targetFloor);
   }
 //
 //
@@ -31,4 +37,20 @@ public class Elevator {
 //   */
 //  void moveElevator(int toFloor);
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Elevator elevator = (Elevator) o;
+    return id == elevator.id;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
 }
