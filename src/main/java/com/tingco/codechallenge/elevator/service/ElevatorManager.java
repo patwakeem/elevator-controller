@@ -28,4 +28,9 @@ public class ElevatorManager {
       }
     }
   }
+
+// Used for testing
+  protected void setDefaultFloor(int defaultFloor) {
+    this.defaultFloor = defaultFloor;
+  }
 }

@@ -22,6 +22,8 @@ public class ElevatorConfiguration {
   private int topFloor;
   @Value("${com.tingco.elevator.bottom-floor}")
   private int bottomFloor;
+  @Value("${com.tingco.elevator.default-floor:0}")
+  private int defaultFloor;
 
   @Bean
   public Map<Integer, List<Elevator>> constructElevatorOnFloorMap(List<Elevator> elevators) {
@@ -49,7 +51,7 @@ public class ElevatorConfiguration {
     for (int i = 0; i < numberOfElevators; i++) {
       var elevator = new Elevator(
           i,
-          0
+          defaultFloor
       );
       elevators.put(i, elevator);
     }
