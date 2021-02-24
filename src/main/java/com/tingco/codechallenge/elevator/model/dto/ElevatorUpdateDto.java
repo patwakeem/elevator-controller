@@ -1,11 +1,9 @@
 package com.tingco.codechallenge.elevator.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.tingco.codechallenge.elevator.model.Direction;
-import com.tingco.codechallenge.elevator.util.DirectionResolver;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,13 +13,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class ElevatorCallDto {
+public class ElevatorUpdateDto {
 
-  private int toFloor;
-  private int fromFloor;
+  private int elevatorId;
+  private int currentFloor;
+  private Direction direction;
 
-  @JsonGetter("direction")
-  public Direction getDirection() {
-    return DirectionResolver.resolveDirectionFromFloors(fromFloor, toFloor);
-  }
 }

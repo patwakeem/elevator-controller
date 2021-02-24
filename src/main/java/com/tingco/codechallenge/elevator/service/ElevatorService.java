@@ -2,6 +2,7 @@ package com.tingco.codechallenge.elevator.service;
 
 import com.tingco.codechallenge.elevator.model.Elevator;
 import com.tingco.codechallenge.elevator.model.dto.ElevatorCallDto;
+import com.tingco.codechallenge.elevator.model.dto.ElevatorUpdateDto;
 import java.util.List;
 
 public interface ElevatorService {
@@ -28,4 +29,5 @@ public interface ElevatorService {
    */
   void releaseElevator(Elevator elevator);
 
+  void updateElevator(ElevatorUpdateDto updateDto);
 }

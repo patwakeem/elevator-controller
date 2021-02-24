@@ -2,6 +2,7 @@ package com.tingco.codechallenge.elevator.controller;
 
 import com.tingco.codechallenge.elevator.model.Elevator;
 import com.tingco.codechallenge.elevator.model.dto.ElevatorCallDto;
+import com.tingco.codechallenge.elevator.model.dto.ElevatorUpdateDto;
 import com.tingco.codechallenge.elevator.model.dto.ResponseDto;
 import com.tingco.codechallenge.elevator.service.ElevatorService;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,4 +36,9 @@ public final class ElevatorController {
     return ResponseEntity.ok(elevatorService.listElevators());
   }
 
+  @PutMapping(value = "/elevator", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ResponseDto> updateElevator(@RequestBody ElevatorUpdateDto updateDto) {
+    elevatorService.updateElevator(updateDto);
+    return ResponseEntity.ok(new ResponseDto("Elevator updated.", true));
+  }
 }
