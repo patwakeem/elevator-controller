@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ElevatorResolver {
 
   public Elevator findBestElevator(List<Elevator> elevators, ElevatorCallDto callDto) {
@@ -22,7 +24,9 @@ public class ElevatorResolver {
     List<ElevatorWithScore> elevatorWithScores = new ArrayList<>();
 
     for (Elevator elevator : elevators) {
-      var score = Math.abs(callDto.getCurrentFloor() - elevator.getCurrentFloor());
+      final var callCurrent = Math.abs(callDto.getCurrentFloor());
+      final var elevatorCurrent = Math.abs(elevator.getCurrentFloor());
+      var score = Math.abs(callCurrent - elevatorCurrent);
       score += elevator.getStopFloors().size();
       var elevatorWithScore = new ElevatorWithScore();
       elevatorWithScore.setElevatorId(elevator.getId());
