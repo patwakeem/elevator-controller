@@ -13,16 +13,16 @@ import org.mockito.quality.Strictness;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-class ElevatorManagerTest {
+class ElevatorRecallerTest {
 
-  private ElevatorManager manager;
+  private ElevatorRecaller manager;
 
   @Mock
   private ElevatorService service;
 
   @BeforeEach
   void setUp() {
-    manager = new ElevatorManager(service);
+    manager = new ElevatorRecaller(service);
   }
 
   @Test

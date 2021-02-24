@@ -35,7 +35,7 @@ public class ElevatorServiceImpl implements ElevatorService {
   @Override
   public Elevator requestElevator(ElevatorCallDto dto) {
     validateFloor(dto.getTargetFloor());
-    Elevator foundElevator = getElevatorGoingInSameDirection(
+    Elevator foundElevator = findElevatorGoingInSameDirection(
         elevatorOnFloorMap.get(dto.getCurrentFloor()), dto.getDirection()
     );
 
@@ -84,7 +84,7 @@ public class ElevatorServiceImpl implements ElevatorService {
     return elevators.stream().filter(x -> !x.isInUse()).findFirst();
   }
 
-  private Elevator getElevatorGoingInSameDirection(List<Elevator> elevators, Direction wantedDirection) {
+  private Elevator findElevatorGoingInSameDirection(List<Elevator> elevators, Direction wantedDirection) {
     for (Elevator elevator : elevators) {
       if (elevator.getDirection() == wantedDirection || elevator.getDirection().equals(Direction.NONE)) {
         return elevator;
