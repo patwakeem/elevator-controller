@@ -67,7 +67,19 @@ public class ElevatorConfiguration {
   }
 
 // Used for testing only.
-  protected void setNumberOfElevators(int numberOfElevators) {
+  public void setNumberOfElevators(int numberOfElevators) {
     this.numberOfElevators = numberOfElevators;
+  }
+
+  public void setTopFloor(int topFloor) {
+    this.topFloor = topFloor;
+  }
+
+  public void setBottomFloor(int bottomFloor) {
+    this.bottomFloor = bottomFloor;
+  }
+
+  public void setDefaultFloor(int defaultFloor) {
+    this.defaultFloor = defaultFloor;
   }
 }

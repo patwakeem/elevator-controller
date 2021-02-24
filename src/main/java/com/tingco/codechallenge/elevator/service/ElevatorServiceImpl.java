@@ -67,7 +67,7 @@ public class ElevatorServiceImpl implements ElevatorService {
   }
 
   @Override
-  public void updateElevator(ElevatorUpdateDto updateDto) {
+  public void updateElevatorLocation(ElevatorUpdateDto updateDto) {
     validateFloor(updateDto.getCurrentFloor());
     validateElevator(updateDto.getElevatorId());
 

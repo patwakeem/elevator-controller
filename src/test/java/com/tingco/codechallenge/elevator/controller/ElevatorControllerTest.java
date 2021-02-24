@@ -54,7 +54,7 @@ class ElevatorControllerTest {
 
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertEquals(elevatorUpdateDto.getElevatorId(), response.getBody().getElevatorId());
-    Mockito.verify(service).updateElevator(elevatorUpdateDto);
+    Mockito.verify(service).updateElevatorLocation(elevatorUpdateDto);
   }
 
   @Test

@@ -39,7 +39,7 @@ public final class ElevatorController {
 
   @PutMapping(value = "/elevator", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ElevatorResponseDto> updateElevator(@RequestBody ElevatorUpdateDto updateDto) {
-    elevatorService.updateElevator(updateDto);
+    elevatorService.updateElevatorLocation(updateDto);
     return ResponseEntity.ok(new ElevatorResponseDto("Elevator updated.", true, updateDto.getElevatorId()));
   }
 }
