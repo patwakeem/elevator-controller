@@ -9,6 +9,7 @@ import com.tingco.codechallenge.elevator.model.dto.ElevatorUpdateDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,21 +29,45 @@ public class ElevatorServiceImpl implements ElevatorService {
 
   @Override
   public Elevator requestElevator(ElevatorCallDto dto) {
-    validateFloor(dto.getToFloor());
+    validateFloor(dto.getTargetFloor());
     Elevator foundElevator = getElevatorGoingInSameDirection(
-        elevatorOnFloorMap.get(dto.getToFloor()), dto.getDirection()
+        elevatorOnFloorMap.get(dto.getCurrentFloor()), dto.getDirection()
     );
 
     if (foundElevator == null) {
-//      TODO continue here
+      foundElevator = findElevator();
     }
 
+//  If our requester is on another floor we have to pick them up first.
+//  Then we can go where they want.
+    if (foundElevator.getCurrentFloor() != dto.getCurrentFloor()) {
+      foundElevator.addStop(dto.getCurrentFloor());
+    }
+
+    foundElevator.addStop(dto.getTargetFloor());
     return foundElevator;
+  }
+
+  private Elevator findElevator() {
+//    find any elevators not in use. if found return
+    final var elevators = listElevators();
+    Optional<Elevator> elevatorOpt = findElevatorNotInUse(elevators);
+
+    if (elevatorOpt.isPresent()) {
+      return elevatorOpt.get();
+    }
+
+//    find closest elevator
+    return elevatorOpt.orElse(null);
+  }
+
+  private Optional<Elevator> findElevatorNotInUse(List<Elevator> elevators) {
+    return elevators.stream().filter(x -> !x.isInUse()).findFirst();
   }
 
   private Elevator getElevatorGoingInSameDirection(List<Elevator> elevators, Direction wantedDirection) {
     for (Elevator elevator : elevators) {
-      if (elevator.getDirection().equals(wantedDirection)) {
+      if (elevator.getDirection() == wantedDirection || elevator.getDirection().equals(Direction.NONE)) {
         return elevator;
       }
     }
@@ -66,7 +91,7 @@ public class ElevatorServiceImpl implements ElevatorService {
 
     final var elevator = elevatorMap.get(updateDto.getElevatorId());
     elevatorOnFloorMap.get(elevator.getCurrentFloor()).remove(elevator);
-    elevator.setCurrentFloor(updateDto.getCurrentFloor());
+    elevator.updateToFloor(updateDto.getCurrentFloor());
     elevatorOnFloorMap.get(updateDto.getCurrentFloor()).add(elevator);
   }
 

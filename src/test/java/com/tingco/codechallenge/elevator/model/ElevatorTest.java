@@ -10,16 +10,15 @@ class ElevatorTest {
 
   @Test
   void elevatorDirectionIsResolvedCorrectly() {
-    assertEquals(Direction.DOWN, new Elevator(0, 1, -2).getDirection());
-    assertEquals(Direction.UP, new Elevator(0, 1, 10).getDirection());
-    assertEquals(Direction.NONE, new Elevator(0, 1, 1).getDirection());
+    assertEquals(Direction.DOWN, new Elevator(0, 1).getDirection());
+    assertEquals(Direction.UP, new Elevator(0, 1).getDirection());
+    assertEquals(Direction.NONE, new Elevator(0, 1).getDirection());
   }
 
   @Test
   void elevatorNotInUseIsCorrectlyMarkedAsSuch() {
     var elevator = new Elevator(
         0,
-        1,
         1
     );
 
@@ -30,8 +29,7 @@ class ElevatorTest {
   void elevatorInUseIsCorrectlyMarkedAsSuch() {
     var elevator = new Elevator(
         0,
-        1,
-        2
+        1
     );
 
     assertTrue(elevator.isInUse());

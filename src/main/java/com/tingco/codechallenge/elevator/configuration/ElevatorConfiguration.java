@@ -46,7 +46,6 @@ public class ElevatorConfiguration {
     for (int i = 0; i < numberOfElevators; i++) {
       var elevator = new Elevator(
           i,
-          0,
           0
       );
       elevators.put(i, elevator);

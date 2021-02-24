@@ -17,11 +17,11 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class ElevatorCallDto {
 
-  private int toFloor;
-  private int fromFloor;
+  private int targetFloor;
+  private int currentFloor;
 
   @JsonGetter("direction")
   public Direction getDirection() {
-    return DirectionResolver.resolveDirectionFromFloors(fromFloor, toFloor);
+    return DirectionResolver.resolveDirectionFromFloors(currentFloor, targetFloor);
   }
 }
