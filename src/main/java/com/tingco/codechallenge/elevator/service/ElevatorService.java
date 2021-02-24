@@ -1,17 +1,18 @@
 package com.tingco.codechallenge.elevator.service;
 
-import com.tingco.codechallenge.elevator.api.Elevator;
+import com.tingco.codechallenge.elevator.model.Elevator;
+import com.tingco.codechallenge.elevator.model.dto.ElevatorCallDto;
 import java.util.List;
 
-interface ElevatorService {
+public interface ElevatorService {
 
   /**
-   * Request an elevator to the specified floor.
+   * Request an elevator to the specified floor. This queues the request.
    *
-   * @param toFloor addressed floor as integer.
+   * @param dto Call DTO that contains your floor.
    * @return The Elevator that is going to the floor, if there is one to move.
    */
-  Elevator requestElevator(int toFloor);
+  Elevator requestElevator(ElevatorCallDto dto);
 
   /**
    * A snapshot list of all elevators in the system.

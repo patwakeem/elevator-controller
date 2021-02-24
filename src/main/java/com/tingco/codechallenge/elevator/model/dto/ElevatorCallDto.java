@@ -10,7 +10,6 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class ResponseDto {
-  private String message;
-  private boolean success;
+public class ElevatorCallDto {
+  private int toFloor;
 }
