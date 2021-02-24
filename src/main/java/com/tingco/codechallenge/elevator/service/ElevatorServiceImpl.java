@@ -4,9 +4,11 @@ import com.tingco.codechallenge.elevator.exception.InvalidElevatorException;
 import com.tingco.codechallenge.elevator.exception.InvalidElevatorFloorException;
 import com.tingco.codechallenge.elevator.model.Direction;
 import com.tingco.codechallenge.elevator.model.Elevator;
+import com.tingco.codechallenge.elevator.model.ElevatorWithScore;
 import com.tingco.codechallenge.elevator.model.dto.ElevatorCallDto;
 import com.tingco.codechallenge.elevator.model.dto.ElevatorUpdateDto;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -35,7 +37,7 @@ public class ElevatorServiceImpl implements ElevatorService {
     );
 
     if (foundElevator == null) {
-      foundElevator = findElevator();
+      foundElevator = findBestElevator(dto);
     }
 
 //  If our requester is on another floor we have to pick them up first.
@@ -48,17 +50,30 @@ public class ElevatorServiceImpl implements ElevatorService {
     return foundElevator;
   }
 
-  private Elevator findElevator() {
-//    find any elevators not in use. if found return
+  private Elevator findBestElevator(ElevatorCallDto callDto) {
+//    find any elevators not in use. if found return immediately
     final var elevators = listElevators();
-    Optional<Elevator> elevatorOpt = findElevatorNotInUse(elevators);
+    final var elevatorOpt = findElevatorNotInUse(elevators);
 
     if (elevatorOpt.isPresent()) {
       return elevatorOpt.get();
     }
 
-//    find closest elevator
-    return elevatorOpt.orElse(null);
+//    find an elevator that is reasonably close and doesn't have too many other stops
+    List<ElevatorWithScore> elevatorWithScores = new ArrayList<>();
+
+    for (Elevator elevator : elevators) {
+      var score = Math.abs(callDto.getCurrentFloor() - elevator.getCurrentFloor());
+      score += elevator.getStopFloors().size();
+      var elevatorWithScore = new ElevatorWithScore();
+      elevatorWithScore.setElevatorId(elevator.getId());
+      elevatorWithScore.setElevatorScore(score);
+      elevatorWithScore.setElevator(elevator);
+      elevatorWithScores.add(elevatorWithScore);
+    }
+
+    elevatorWithScores.sort(Comparator.comparingInt(ElevatorWithScore::getElevatorScore));
+    return elevatorOpt.orElse(elevatorWithScores.get(0).getElevator());
   }
 
   private Optional<Elevator> findElevatorNotInUse(List<Elevator> elevators) {
@@ -77,11 +92,6 @@ public class ElevatorServiceImpl implements ElevatorService {
   @Override
   public List<Elevator> listElevators() {
     return new ArrayList<>(elevatorMap.values());
-  }
-
-  @Override
-  public void releaseElevator(Elevator elevator) {
-
   }
 
   @Override

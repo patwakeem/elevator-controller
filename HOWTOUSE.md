@@ -8,9 +8,6 @@ Elevator software should update the central system when it is in use and reaches
 - Postman collection included in the postman folder. Use this to implement your client.
 
 
-
-- 
-
 ###Configuration Keys - application.properties
 com.tingco.elevator.number-of-elevators, number of available elevators.
 

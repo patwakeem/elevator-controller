@@ -23,11 +23,8 @@ public interface ElevatorService {
   List<Elevator> listElevators();
 
   /**
-   * Telling the controller that the given elevator is free for new operations.
-   *
-   * @param elevator the elevator that shall be released.
+   * Called by elevators as they travel from floor to floor.
+   * Keeps track of where elevators are and the stops they have.
    */
-  void releaseElevator(Elevator elevator);
-
   void updateElevator(ElevatorUpdateDto updateDto);
 }

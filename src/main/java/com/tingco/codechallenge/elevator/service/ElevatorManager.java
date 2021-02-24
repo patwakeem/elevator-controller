@@ -23,6 +23,7 @@ public class ElevatorManager {
     log.debug("Beginning elevator recall routine. Elevators not in use will be recalled to floor: {}", defaultFloor);
 
     for (Elevator elevator : service.listElevators()) {
+//      TODO fix me, error on recalling elevator
       if (!elevator.isInUse() && elevator.getCurrentFloor() != defaultFloor) {
         log.debug("Elevator with ID {} is not in use. Will be recalled to default floor.", elevator.getId());
         final var elevatorUpdateDto = new ElevatorUpdateDto();

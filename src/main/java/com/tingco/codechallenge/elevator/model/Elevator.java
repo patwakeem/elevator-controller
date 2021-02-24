@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.tingco.codechallenge.elevator.util.DirectionResolver;
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -19,7 +19,7 @@ public class Elevator {
 
   private int id;
   private int currentFloor;
-  private final Set<Integer> stopFloors = new LinkedHashSet<>();
+  private final List<Integer> stopFloors = new ArrayList<>();
 
   @JsonGetter("in_use")
   public boolean isInUse() {
@@ -31,15 +31,19 @@ public class Elevator {
     if (stopFloors.isEmpty()) {
       return Direction.NONE;
     }
-    return DirectionResolver.resolveDirectionFromFloors(currentFloor, stopFloors.iterator().next());
+    return DirectionResolver.resolveDirectionFromFloors(currentFloor, stopFloors.get(0));
   }
 
   public void addStop(int floor) {
-    stopFloors.add(floor);
+    if (stopFloors.isEmpty() || stopFloors.get(0) != floor) {
+      stopFloors.add(floor);
+    }
   }
 
   public void updateToFloor(int floor) {
-    stopFloors.remove(floor);
+    if (stopFloors.get(0) == floor) {
+      stopFloors.remove(0);
+    }
     currentFloor = floor;
   }
 
