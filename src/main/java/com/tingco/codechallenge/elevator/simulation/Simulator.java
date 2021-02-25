@@ -72,6 +72,7 @@ public class Simulator implements ApplicationRunner {
 
     for (int i = 0; i < simulationLoops; i++) {
       log.info("Starting loop: {}", i + 1);
+      log.info("Starting user movement phase.");
       for (ElevatorCallDto generateCallDto : generateCallDtos()) {
         calls++;
         try {
@@ -81,16 +82,20 @@ public class Simulator implements ApplicationRunner {
         }
       }
 
-//      Simulate elevator movement every step
+      log.info("Starting elevator movement phase.");
       for (Elevator elevator : controller.listElevators().getBody()) {
         for (int j = 0; j < elevatorMovePerStep; j++) {
           if (elevator.getDirection() == Direction.DOWN) {
+            var floor = elevator.getCurrentFloor() - 1;
+            log.debug("Elevator {} moved {} to floor {}.", elevator.getId(), elevator.getDirection(), floor);
             controller.updateElevator(
-                new ElevatorUpdateDto(elevator.getId(), elevator.getCurrentFloor() - 1)
+                new ElevatorUpdateDto(elevator.getId(), floor)
             );
           } else if (elevator.getDirection() == Direction.UP) {
+            var floor = elevator.getCurrentFloor() + 1;
+            log.debug("Elevator {} moved {} to floor {}.", elevator.getId(), elevator.getDirection(), floor);
             controller.updateElevator(
-                new ElevatorUpdateDto(elevator.getId(), elevator.getCurrentFloor() + 1)
+                new ElevatorUpdateDto(elevator.getId(), floor)
             );
           }
         }
