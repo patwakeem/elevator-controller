@@ -19,10 +19,31 @@ class ElevatorConfigurationTest {
   @Test
   void correctNumberOfElevatorsAreInitialized() {
     elevatorConfiguration.setNumberOfElevators(3);
+    elevatorConfiguration.setTopFloor(10);
+    elevatorConfiguration.setBottomFloor(-10);
 
     final var map = elevatorConfiguration.constructElevatorMap();
 
     assertEquals(3, map.size());
+  }
+
+  @Test
+  void exceptionIsThrownWhenNoFloors() {
+    elevatorConfiguration.setNumberOfElevators(3);
+    elevatorConfiguration.setTopFloor(10);
+    elevatorConfiguration.setBottomFloor(10);
+
+    assertThrows(ConfigurationException.class, () -> elevatorConfiguration.constructElevatorMap());
+  }
+
+  @Test
+  void exceptionIsThrownWhenDefaultFloorOutOfRange() {
+    elevatorConfiguration.setNumberOfElevators(3);
+    elevatorConfiguration.setTopFloor(10);
+    elevatorConfiguration.setBottomFloor(-10);
+    elevatorConfiguration.setDefaultFloor(100);
+
+    assertThrows(ConfigurationException.class, () -> elevatorConfiguration.constructElevatorMap());
   }
 
   @Test

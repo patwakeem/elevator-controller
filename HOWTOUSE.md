@@ -1,4 +1,4 @@
-# The Greatest Elevator System Ever Devised
+# Using The Greatest Elevator System Ever Devised
 
 Your elevator call buttons should call an elevator using the request endpoint. If an elevator is on your floor and going in the same direction it will be assigned to you. 
 - If no elevators are on your floor and going the same direction as you, you will be assigned an elevator which should be close and doesn't have many other stops.
@@ -12,7 +12,7 @@ The system can be polled for the current elevator state by using the list elevat
 
 The system will recall elevators to the default floor periodically. This recall routine can be configured (see below).
 
-
+##Configuration is IMPORTANT. Read the following section and configure the application correctly for your building
 ###Configuration Keys - application.properties
 The elevator system should be configured using the following keys in the application.properties file.
 

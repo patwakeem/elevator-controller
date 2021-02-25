@@ -45,6 +45,7 @@ public class ElevatorConfiguration {
 
   @Bean
   public Map<Integer, Elevator> constructElevatorMap() {
+    validateConfig();
     validateElevatorNumberOrThrow(numberOfElevators);
     var elevators = new ConcurrentHashMap<Integer, Elevator>();
     log.info("Initializing {} elevators...", numberOfElevators);
@@ -64,6 +65,41 @@ public class ElevatorConfiguration {
     if (numberOfElevators <= 0) {
       throw new ConfigurationException("Number of elevators was 0 or less. You must specify a number greater than 1");
     }
+  }
+
+  private void validateConfig() {
+    if (topFloor == bottomFloor) {
+      throw new ConfigurationException(
+          String.format(
+              "Your building seems to have no floors. You don't need an elevator. Top floor %s, Bottom floor %s",
+              topFloor,
+              bottomFloor
+          )
+      );
+    } else if (bottomFloor > topFloor) {
+      throw new ConfigurationException(
+          String.format(
+              "Your configured bottom floor is above your top floor. Please check your configuration. Top floor %s, Bottom floor %s",
+              topFloor,
+              bottomFloor
+          )
+      );
+    }
+
+    if (!floorInRange(defaultFloor)) {
+      throw new ConfigurationException(
+          String.format(
+              "Your default floor is %s which is not in the range of %s - %s",
+              defaultFloor,
+              bottomFloor,
+              topFloor
+          )
+      );
+    }
+  }
+
+  private boolean floorInRange(int floor) {
+    return floor >= bottomFloor && floor <= topFloor;
   }
 
   // Used for testing only.
