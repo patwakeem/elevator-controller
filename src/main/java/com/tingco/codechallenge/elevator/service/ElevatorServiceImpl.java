@@ -4,7 +4,6 @@ import com.tingco.codechallenge.elevator.exception.InvalidElevatorException;
 import com.tingco.codechallenge.elevator.exception.InvalidElevatorFloorException;
 import com.tingco.codechallenge.elevator.metrics.MetricTags;
 import com.tingco.codechallenge.elevator.metrics.MetricsRecorder;
-import com.tingco.codechallenge.elevator.model.Direction;
 import com.tingco.codechallenge.elevator.model.Elevator;
 import com.tingco.codechallenge.elevator.model.dto.ElevatorCallDto;
 import com.tingco.codechallenge.elevator.model.dto.ElevatorUpdateDto;
@@ -32,12 +31,13 @@ public class ElevatorServiceImpl implements ElevatorService {
   @Override
   public Elevator requestElevator(ElevatorCallDto dto) {
     validateFloor(dto.getTargetFloor());
-    Elevator foundElevator = findElevatorGoingInSameDirection(
+    final var resolver = new ElevatorResolver();
+
+    var foundElevator = resolver.findElevatorGoingInSameDirection(
         elevatorOnFloorMap.get(dto.getCurrentFloor()), dto.getDirection()
     );
 
     if (foundElevator == null) {
-      var resolver = new ElevatorResolver();
       foundElevator = resolver.findBestElevator(listElevators(), dto);
     }
 
@@ -52,14 +52,14 @@ public class ElevatorServiceImpl implements ElevatorService {
     return foundElevator;
   }
 
-  private Elevator findElevatorGoingInSameDirection(List<Elevator> elevators, Direction wantedDirection) {
-    for (Elevator elevator : elevators) {
-      if (elevator.getDirection() == wantedDirection || elevator.getDirection().equals(Direction.NONE)) {
-        return elevator;
-      }
-    }
-    return null;
-  }
+//  private Elevator findElevatorGoingInSameDirection(List<Elevator> elevators, Direction wantedDirection) {
+//    for (Elevator elevator : elevators) {
+//      if (elevator.getDirection() == wantedDirection || elevator.getDirection().equals(Direction.NONE)) {
+//        return elevator;
+//      }
+//    }
+//    return null;
+//  }
 
   @Override
   public List<Elevator> listElevators() {

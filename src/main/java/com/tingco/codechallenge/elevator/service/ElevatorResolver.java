@@ -1,5 +1,6 @@
 package com.tingco.codechallenge.elevator.service;
 
+import com.tingco.codechallenge.elevator.model.Direction;
 import com.tingco.codechallenge.elevator.model.Elevator;
 import com.tingco.codechallenge.elevator.model.ElevatorWithScore;
 import com.tingco.codechallenge.elevator.model.dto.ElevatorCallDto;
@@ -10,6 +11,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ElevatorResolver {
+
+  public Elevator findElevatorGoingInSameDirection(List<Elevator> elevators, Direction wantedDirection) {
+    for (Elevator elevator : elevators) {
+      if (elevator.getDirection() == wantedDirection || elevator.getDirection().equals(Direction.NONE)) {
+        log.debug("Found elevator {} on same floor going in wanted direction {}", elevator.getId(), wantedDirection);
+        return elevator;
+      }
+    }
+    return null;
+  }
 
   public Elevator findBestElevator(List<Elevator> elevators, ElevatorCallDto callDto) {
 //    Find an elevator that is close and doesnt have too many stops.
