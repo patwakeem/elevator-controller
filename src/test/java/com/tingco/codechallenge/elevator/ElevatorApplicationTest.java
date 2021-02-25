@@ -8,6 +8,5 @@ class ElevatorApplicationTest {
 
   @Test
   void contextLoads() {
-//    Does our spring context load correctly?
   }
 }

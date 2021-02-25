@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @SpringBootApplication
 public class ElevatorApplication {
+
   public static void main(final String[] args) {
     SpringApplication.run(ElevatorApplication.class, args);
   }

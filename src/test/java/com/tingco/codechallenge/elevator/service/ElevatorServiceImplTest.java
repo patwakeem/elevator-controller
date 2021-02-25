@@ -66,7 +66,6 @@ class ElevatorServiceImplTest {
     final var elevatorFour = service.requestElevator(new ElevatorCallDto(7, 3));
     service.updateElevatorLocation(new ElevatorUpdateDto(elevatorFour.getId(), 3));
 
-
     assertEquals(0, elevator.getId());
     assertEquals(1, elevatorTwo.getId());
     assertEquals(elevator, elevatorThree);

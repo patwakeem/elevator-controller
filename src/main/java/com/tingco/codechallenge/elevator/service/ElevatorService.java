@@ -23,14 +23,13 @@ public interface ElevatorService {
   List<Elevator> listElevators();
 
   /**
-   * Called by elevators as they travel from floor to floor.
-   * Keeps track of where elevators are and the stops they have.
+   * Called by elevators as they travel from floor to floor. Keeps track of where elevators are and the stops they
+   * have.
    */
   void updateElevatorLocation(ElevatorUpdateDto updateDto);
 
   /**
-   * Recalls an elevator to a floor directly.
-   * For use by elevator recall system.
+   * Recalls an elevator to a floor directly. For use by elevator recall system.
    */
   void recallElevatorToFloor(int elevatorId, int floor);
 }

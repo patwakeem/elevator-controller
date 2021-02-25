@@ -19,6 +19,9 @@ com.tingco.elevator.default-floor, the main floor of the building (usually the l
 
 com.tingco.elevator.elevator-reset-interval-ms, The elevator system will recall elevators which are not in use to the default floor. Set this value to the interval (in milliseconds) that you want this recall to happen at.
 
+com.tingco.elevator.simulation.mode-enable, Boolean, setting to true will enable simulation mode.
+
+
 ###Internal Properties - application.properties
 
 logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter, set this to DEBUG if you want to see detailed request logs.

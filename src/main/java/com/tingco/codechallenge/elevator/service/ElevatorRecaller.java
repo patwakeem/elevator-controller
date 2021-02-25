@@ -29,7 +29,7 @@ public class ElevatorRecaller {
     }
   }
 
-// Used for testing
+  // Used for testing
   protected void setDefaultFloor(int defaultFloor) {
     this.defaultFloor = defaultFloor;
   }

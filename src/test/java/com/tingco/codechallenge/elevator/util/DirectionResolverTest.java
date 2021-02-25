@@ -6,6 +6,7 @@ import com.tingco.codechallenge.elevator.model.Direction;
 import org.junit.jupiter.api.Test;
 
 class DirectionResolverTest {
+
   @Test
   void elevatorDirectionIsResolvedCorrectly() {
     assertEquals(Direction.DOWN, DirectionResolver.resolveDirectionFromFloors(1, -2));

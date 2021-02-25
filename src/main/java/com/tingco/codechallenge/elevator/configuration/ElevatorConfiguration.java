@@ -66,7 +66,7 @@ public class ElevatorConfiguration {
     }
   }
 
-// Used for testing only.
+  // Used for testing only.
   public void setNumberOfElevators(int numberOfElevators) {
     this.numberOfElevators = numberOfElevators;
   }
