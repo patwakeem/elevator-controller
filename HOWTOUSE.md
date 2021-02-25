@@ -48,3 +48,9 @@ verify
 Building a container is as simple as running the following maven goal:
 spring-boot:build-image
 
+###Running the application as a jar
+You may run the application by building directly.
+```
+mvn clean verify package
+java -jar target/elevator-2020.02.27-0.jar --spring.config.location=/path/to/application.properties
+```

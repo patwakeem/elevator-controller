@@ -1,4 +1,4 @@
-package com.tingco.codechallenge.elevator;
+package com.tingco.codechallenge.elevator.simulation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tingco.codechallenge.elevator.controller.ElevatorController;

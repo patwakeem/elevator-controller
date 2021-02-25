@@ -51,6 +51,7 @@
             <exclude>com/tingco/codechallenge/elevator/metrics/*</exclude>
             <exclude>com/tingco/codechallenge/elevator/exception/*</exclude>
             <exclude>com/tingco/codechallenge/elevator/configuration/*</exclude>
+            <exclude>com/tingco/codechallenge/elevator/simulation/*</exclude>
             <exclude>com/tingco/codechallenge/elevator/model/**/*</exclude>
           </excludes>
         </configuration>
@@ -115,12 +116,5 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.jayway.awaitility</groupId>
-            <artifactId>awaitility</artifactId>
-            <version>${awaitility.version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
-
 </project>
