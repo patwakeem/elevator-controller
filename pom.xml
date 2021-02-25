@@ -45,13 +45,13 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.3</version>
+        <version>0.8.6</version>
         <configuration>
           <excludes>
             <exclude>com/tingco/codechallenge/elevator/metrics/*</exclude>
             <exclude>com/tingco/codechallenge/elevator/exception/*</exclude>
             <exclude>com/tingco/codechallenge/elevator/configuration/*</exclude>
-            <exclude>com/tingco/codechallenge/elevator/model/*</exclude>
+            <exclude>com/tingco/codechallenge/elevator/model/**/*</exclude>
           </excludes>
         </configuration>
         <executions>
