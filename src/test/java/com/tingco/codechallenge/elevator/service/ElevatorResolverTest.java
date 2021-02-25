@@ -19,9 +19,10 @@ class ElevatorResolverTest {
     elevator.addStop(-10);
     elevator.addStop(-10);
 
-    var found = new ElevatorResolver().findElevatorGoingInSameDirection(
+    var found = new ElevatorResolver().quicklyFindElevatorIfPossible(
         List.of(elevatorThree, elevatorTwo, elevator),
-        Direction.UP
+        Direction.UP,
+        List.of(elevatorThree, elevatorTwo, elevator)
     );
 
     assertEquals(elevatorThree, found);

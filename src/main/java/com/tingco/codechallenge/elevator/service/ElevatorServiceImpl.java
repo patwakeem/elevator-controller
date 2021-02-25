@@ -31,14 +31,16 @@ public class ElevatorServiceImpl implements ElevatorService {
   @Override
   public Elevator requestElevator(ElevatorCallDto dto) {
     validateFloor(dto.getTargetFloor());
+    recorder.incrementCounter(MetricTags.ELEVATORS_CALLED);
     final var resolver = new ElevatorResolver();
+    final var elevators = listElevators();
 
-    var foundElevator = resolver.findElevatorGoingInSameDirection(
-        elevatorOnFloorMap.get(dto.getCurrentFloor()), dto.getDirection()
+    var foundElevator = resolver.quicklyFindElevatorIfPossible(
+        elevatorOnFloorMap.get(dto.getCurrentFloor()), dto.getDirection(), elevators
     );
 
     if (foundElevator == null) {
-      foundElevator = resolver.findBestElevator(listElevators(), dto);
+      foundElevator = resolver.findBestElevator(elevators, dto);
     }
 
 //  If our requester is on another floor we have to pick them up first.
@@ -48,7 +50,6 @@ public class ElevatorServiceImpl implements ElevatorService {
     }
 
     foundElevator.addStop(dto.getTargetFloor());
-    recorder.incrementCounter(MetricTags.ELEVATORS_CALLED);
     return foundElevator;
   }
 

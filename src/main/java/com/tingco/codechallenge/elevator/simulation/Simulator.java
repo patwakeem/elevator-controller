@@ -112,8 +112,8 @@ public class Simulator implements ApplicationRunner {
       final var simulationReport = new SimulationReport(
           errors,
           simulationLoops,
-          elevatorMovePerStep,
           calls,
+          elevatorMovePerStep,
           reportDate,
           controller.listElevators().getBody()
       );

@@ -12,9 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ElevatorResolver {
 
-  public Elevator findElevatorGoingInSameDirection(List<Elevator> elevators, Direction wantedDirection) {
-    for (Elevator elevator : elevators) {
-      if (elevator.getDirection() == wantedDirection || elevator.getDirection().equals(Direction.NONE)) {
+  public Elevator quicklyFindElevatorIfPossible(List<Elevator> elevatorsOnSameFloor, Direction direction, List<Elevator> allElevators) {
+    if (allElevators.size() == 1) {
+      return allElevators.get(0);
+    }
+    for (Elevator elevator : elevatorsOnSameFloor) {
+      if (elevator.getDirection() == direction || elevator.getDirection().equals(Direction.NONE)) {
         log.debug("Found elevator {} on same floor not in use or en route.", elevator.getId());
         return elevator;
       }
