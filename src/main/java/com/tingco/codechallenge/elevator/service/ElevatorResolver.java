@@ -15,7 +15,7 @@ public class ElevatorResolver {
   public Elevator findElevatorGoingInSameDirection(List<Elevator> elevators, Direction wantedDirection) {
     for (Elevator elevator : elevators) {
       if (elevator.getDirection() == wantedDirection || elevator.getDirection().equals(Direction.NONE)) {
-        log.debug("Found elevator {} on same floor going in wanted direction {}", elevator.getId(), wantedDirection);
+        log.debug("Found elevator {} on same floor not in use or en route.", elevator.getId());
         return elevator;
       }
     }
