@@ -9,7 +9,9 @@ The simulation will run in a loop until it reaches the "com.tingco.elevator.simu
 Each loop will start with creating elevator requests, the amount of requests created is equal to the property value of "com.tingco.elevator.simulation.simulation-users-per-loop". 
 
 If "com.tingco.elevator.simulation.enable-invalid-calls" is set to true the generated calls can be out of the floor range (above/below the min/max floors). After the calls have been generated the elevators get to move, each elevator moves an amount of times equal to "com.tingco.elevator.simulation.elevator-move-per-step". 
-After a loop completes the simulation will sleep for milliseconds equal to "com.tingco.elevator.simulation.loop-sleep-time-ms". When all loops have completed the simulation will write a report to the path specified in "com.tingco.elevator.simulation.report-path". If no path is present the report will not be written.
+After a loop completes the simulation will sleep for milliseconds equal to "com.tingco.elevator.simulation.loop-sleep-time-ms". 
+
+When all loops have completed the simulation will write a report to the path specified in "com.tingco.elevator.simulation.report-path". If no path is present the report will not be written.
 Finally if the following property is set to true "com.tingco.elevator.simulation.exit-when-done" the application will exit.
 
 
