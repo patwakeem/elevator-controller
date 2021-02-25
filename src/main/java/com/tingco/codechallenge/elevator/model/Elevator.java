@@ -41,6 +41,8 @@ public class Elevator {
     }
   }
 
+// The elevator has reached a floor.
+// All passengers on this floor should disembark.
   public void updateToFloor(int floor) {
     stopFloors.removeAll(Collections.singletonList(floor));
     currentFloor = floor;

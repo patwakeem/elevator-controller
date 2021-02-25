@@ -30,6 +30,7 @@ public class ElevatorServiceImpl implements ElevatorService {
 
   @Override
   public Elevator requestElevator(ElevatorCallDto dto) {
+    validateFloor(dto.getCurrentFloor());
     validateFloor(dto.getTargetFloor());
     recorder.incrementCounter(MetricTags.ELEVATORS_CALLED);
     final var resolver = new ElevatorResolver();

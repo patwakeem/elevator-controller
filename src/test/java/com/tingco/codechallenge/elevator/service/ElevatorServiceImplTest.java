@@ -95,6 +95,19 @@ class ElevatorServiceImplTest {
   }
 
   @Test
+  void requestElevatorThrowsExceptionOnInvalidFloor() {
+    final var dtoInvalidTarget = new ElevatorCallDto();
+    dtoInvalidTarget.setCurrentFloor(0);
+    dtoInvalidTarget.setTargetFloor(-50);
+    final var dtoInvalidCurrent = new ElevatorCallDto();
+    dtoInvalidCurrent.setCurrentFloor(10000);
+    dtoInvalidCurrent.setTargetFloor(5);
+
+    assertThrows(InvalidElevatorFloorException.class, () -> service.requestElevator(dtoInvalidCurrent));
+    assertThrows(InvalidElevatorFloorException.class, () -> service.requestElevator(dtoInvalidTarget));
+  }
+
+  @Test
   void updateElevatorLocationTests() {
     var elevatorId = 1;
     var updateDto = new ElevatorUpdateDto();
