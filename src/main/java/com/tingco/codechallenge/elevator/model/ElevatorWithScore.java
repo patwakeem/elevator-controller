@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class ElevatorWithScore {
   private int elevatorId;
-  private int elevatorScore;
+  private double elevatorScore;
   private Elevator elevator;
 }

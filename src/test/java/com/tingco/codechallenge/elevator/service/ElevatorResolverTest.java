@@ -22,7 +22,7 @@ class ElevatorResolverTest {
         new ElevatorCallDto()
     );
 
-    assertEquals(found, elevatorTwo);
+    assertEquals(elevatorTwo, found);
   }
 
   @Test
