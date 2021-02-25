@@ -38,7 +38,9 @@ spring.jackson.serialization.indent_output, enables pretty json responses.
 management.metrics.export.statsd.enabled, enables statsd metrics exporting.
 
 ###Running a Coverage Check
-Building a container is as simple as running the following maven goal:
+Running a coverage check is as simple as running the following maven goal:
+Line coverage must be >80% or the build will fail.
+
 verify
 
 ###Building a Container
