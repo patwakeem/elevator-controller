@@ -11,6 +11,7 @@ import com.tingco.codechallenge.elevator.metrics.MetricTags;
 import com.tingco.codechallenge.elevator.metrics.MetricsRecorder;
 import com.tingco.codechallenge.elevator.model.dto.ElevatorCallDto;
 import com.tingco.codechallenge.elevator.model.dto.ElevatorUpdateDto;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -61,10 +62,16 @@ class ElevatorServiceImplTest {
     service.updateElevatorLocation(new ElevatorUpdateDto(elevatorTwo.getId(), 2));
 //    Call elevator on floor 1 going up to floor 6. Should return elevator 0 (it is still on floor 1)
     final var elevatorThree = service.requestElevator(new ElevatorCallDto(6, 1));
+//    Call elevator on floor 3 going up to floor 7.
+    final var elevatorFour = service.requestElevator(new ElevatorCallDto(7, 3));
+    service.updateElevatorLocation(new ElevatorUpdateDto(elevatorFour.getId(), 3));
+
 
     assertEquals(0, elevator.getId());
     assertEquals(1, elevatorTwo.getId());
     assertEquals(elevator, elevatorThree);
+    assertEquals(1, elevatorFour.getId());
+    assertEquals(List.of(5, 7), elevatorFour.getStopFloors());
   }
 
   @Test

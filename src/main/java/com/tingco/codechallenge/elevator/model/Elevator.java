@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.tingco.codechallenge.elevator.util.DirectionResolver;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
@@ -41,9 +42,7 @@ public class Elevator {
   }
 
   public void updateToFloor(int floor) {
-    if (stopFloors.get(0) == floor) {
-      stopFloors.remove(0);
-    }
+    stopFloors.removeAll(Collections.singletonList(floor));
     currentFloor = floor;
   }
 
