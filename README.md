@@ -12,8 +12,8 @@ The system can be polled for the current elevator state by using the list elevat
 
 The system will recall elevators to the default floor periodically. This recall routine can be configured (see below).
 
-##Configuration is IMPORTANT. Read the following section and configure the application correctly for your building
-###Configuration Keys - application.properties
+## Configuration is IMPORTANT. Read the following section and configure the application correctly for your building
+### Configuration Keys - application.properties
 The elevator system should be configured using the following keys in the application.properties file.
 
 com.tingco.elevator.number-of-elevators, number of available elevators.
@@ -27,7 +27,7 @@ com.tingco.elevator.default-floor, the main floor of the building (usually the l
 com.tingco.elevator.elevator-reset-interval-ms, The elevator system will recall elevators which are not in use to the default floor. Set this value to the interval (in milliseconds) that you want this recall to happen at.
 
 
-###Internal Properties - application.properties
+### Internal Properties - application.properties
 
 logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter, set this to DEBUG if you want to see detailed request logs.
 
@@ -45,7 +45,7 @@ spring.jackson.serialization.indent_output, enables pretty json responses.
 
 management.metrics.export.statsd.enabled, enables statsd metrics exporting.
 
-##Running a Coverage Check
+## Running a Coverage Check
 Running a coverage check is as simple as running the following maven goal:
 Line coverage must be >80% or the build will fail.
 
@@ -53,11 +53,11 @@ Line coverage must be >80% or the build will fail.
 mvn clean verify
 ```
 
-##Building a Container
+## Building a Container
 Building a container is as simple as running the following maven goal:
 spring-boot:build-image
 
-##Starting the Application
+## Starting the Application
 You may also run the application by building it directly. The application requires java 11+.
 
 The application is configured using an application.properties file. You can create one and point to it on the command line.
@@ -66,10 +66,10 @@ mvn clean verify package
 java -jar target/elevator-2020.02.27-0.jar --spring.config.location=/path/to/application.properties
 ```
 
-##Editing the Application
+## Editing the Application
 Using intellij is recommended to work with this application. Additionally you must have the lombok plugin installed (built into newer versions of intellij).
 
-##Running a simulation
+## Running a simulation
 The application can be configured to run a simulation. For instructions on how to do this see SIMULATION.md.
 
 ## Monitoring the Application - Elevator State
