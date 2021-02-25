@@ -52,15 +52,6 @@ public class ElevatorServiceImpl implements ElevatorService {
     return foundElevator;
   }
 
-//  private Elevator findElevatorGoingInSameDirection(List<Elevator> elevators, Direction wantedDirection) {
-//    for (Elevator elevator : elevators) {
-//      if (elevator.getDirection() == wantedDirection || elevator.getDirection().equals(Direction.NONE)) {
-//        return elevator;
-//      }
-//    }
-//    return null;
-//  }
-
   @Override
   public List<Elevator> listElevators() {
     return new ArrayList<>(elevatorMap.values());
