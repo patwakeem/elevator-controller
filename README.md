@@ -72,11 +72,13 @@ Using intellij is recommended to work with this application. Additionally you mu
 ##Running a simulation
 The application can be configured to run a simulation. For instructions on how to do this see SIMULATION.md.
 
+## Monitoring the Application - Elevator State
+The system can be polled for the current elevator state by using the list elevator endpoint.
+- For an example of this endpoint see the postman collection "list elevators" call.
 
 ## Monitoring the Application - Metrics
 The application can be configured to ship metrics to a statsd instance. Simply set the following property to true to enable this: "management.metrics.export.statsd.enabled".
 You can configure metrics exporting with the following keys: management.metrics.export.statsd.* They are documented here: https://github.com/micrometer-metrics/micrometer-docs/blob/master/src/docs/spring/spring-configuring.adoc#statsd
-
 
 ## Monitoring the Application - Healthcheck
 The application includes a healthcheck endpoint for use by operators or alternatively, a load balancer. With the default properties it is available at: <SERVER_ADDRESS>:9000/actuator/health
