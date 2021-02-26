@@ -16,7 +16,7 @@ Finally if the following property is set to true "com.tingco.elevator.simulation
 
 
 ## Simulation Control Properties
-When this is set to true the following config keys become available to you:
+When simulation mode is enabled the following config keys become available to you:
 
 com.tingco.elevator.simulation.enable-invalid-calls (boolean): Enabling this will cause invalid call requests to be generated. Invalid requests will be to floors that are above or below the max and min floor values. 
 
