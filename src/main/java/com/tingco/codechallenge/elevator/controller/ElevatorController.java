@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,7 @@ public final class ElevatorController {
 
   private final ElevatorService elevatorService;
 
-  @PostMapping(value = "/elevator/call", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "/call", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ElevatorResponseDto> callElevator(@RequestBody ElevatorCallDto requestDto) {
     final var elevator = elevatorService.requestElevator(requestDto);
     final var responseDto = new ElevatorResponseDto(
@@ -37,9 +38,9 @@ public final class ElevatorController {
     return ResponseEntity.ok(elevatorService.listElevators());
   }
 
-  @PutMapping(value = "/elevator", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ElevatorResponseDto> updateElevator(@RequestBody ElevatorUpdateDto updateDto) {
-    elevatorService.updateElevatorLocation(updateDto);
-    return ResponseEntity.ok(new ElevatorResponseDto("Elevator updated.", true, updateDto.getElevatorId()));
+  @PutMapping(value = "/elevator/{elevatorId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ElevatorResponseDto> updateElevator(@PathVariable int elevatorId, @RequestBody ElevatorUpdateDto updateDto) {
+    elevatorService.updateElevatorLocation(updateDto, elevatorId);
+    return ResponseEntity.ok(new ElevatorResponseDto("Elevator updated.", true, elevatorId));
   }
 }

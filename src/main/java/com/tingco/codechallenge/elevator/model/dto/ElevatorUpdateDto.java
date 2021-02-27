@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class ElevatorUpdateDto {
 
-  private int elevatorId;
   private int currentFloor;
 
 }

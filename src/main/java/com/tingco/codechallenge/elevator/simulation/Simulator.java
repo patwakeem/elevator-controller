@@ -89,13 +89,15 @@ public class Simulator implements ApplicationRunner {
             var floor = elevator.getCurrentFloor() - 1;
             log.debug("Elevator {} moved {} to floor {}.", elevator.getId(), elevator.getDirection(), floor);
             controller.updateElevator(
-                new ElevatorUpdateDto(elevator.getId(), floor)
+                elevator.getId(),
+                new ElevatorUpdateDto(floor)
             );
           } else if (elevator.getDirection() == Direction.UP) {
             var floor = elevator.getCurrentFloor() + 1;
             log.debug("Elevator {} moved {} to floor {}.", elevator.getId(), elevator.getDirection(), floor);
             controller.updateElevator(
-                new ElevatorUpdateDto(elevator.getId(), floor)
+                elevator.getId(),
+                new ElevatorUpdateDto(floor)
             );
           }
         }

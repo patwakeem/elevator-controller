@@ -26,7 +26,7 @@
 					"raw": "{\n    \"target_floor\": 5,\n    \"current_floor\": 4\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/v1/elevator/call",
+					"raw": "http://localhost:8080/v1/call",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -34,7 +34,6 @@
 					"port": "8080",
 					"path": [
 						"v1",
-						"elevator",
 						"call"
 					]
 				}
@@ -80,7 +79,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"elevator_id\": 0,\n    \"current_floor\": 4\n}",
+					"raw": "{\n    \"current_floor\": 5\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -88,7 +87,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/v1/elevator",
+					"raw": "http://localhost:8080/v1/elevator/0",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -96,7 +95,8 @@
 					"port": "8080",
 					"path": [
 						"v1",
-						"elevator"
+						"elevator",
+						"0"
 					]
 				}
 			},

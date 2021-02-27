@@ -55,16 +55,16 @@ class ElevatorServiceImplTest {
 
 //    Call elevator on floor 0 twice. Should give us both of our elevators.
     final var elevator = service.requestElevator(callDto);
-    service.updateElevatorLocation(new ElevatorUpdateDto(elevator.getId(), 1));
+    service.updateElevatorLocation(new ElevatorUpdateDto(1), elevator.getId());
     final var elevatorTwo = service.requestElevator(callDto);
 //    Update the location of our elevators to floor 1 and 2 (both are in use).
-    service.updateElevatorLocation(new ElevatorUpdateDto(elevatorTwo.getId(), 1));
-    service.updateElevatorLocation(new ElevatorUpdateDto(elevatorTwo.getId(), 2));
+    service.updateElevatorLocation(new ElevatorUpdateDto(1), elevatorTwo.getId());
+    service.updateElevatorLocation(new ElevatorUpdateDto(2), elevatorTwo.getId());
 //    Call elevator on floor 1 going up to floor 6. Should return elevator 0 (it is still on floor 1)
     final var elevatorThree = service.requestElevator(new ElevatorCallDto(6, 1));
 //    Call elevator on floor 3 going up to floor 7.
     final var elevatorFour = service.requestElevator(new ElevatorCallDto(7, 3));
-    service.updateElevatorLocation(new ElevatorUpdateDto(elevatorFour.getId(), 3));
+    service.updateElevatorLocation(new ElevatorUpdateDto(3), elevatorFour.getId());
 
     assertEquals(0, elevator.getId());
     assertEquals(1, elevatorTwo.getId());
@@ -81,11 +81,11 @@ class ElevatorServiceImplTest {
 
 //    Call elevator on floor 0 twice. Should give us both of our elevators.
     final var elevator = service.requestElevator(callDto);
-    service.updateElevatorLocation(new ElevatorUpdateDto(elevator.getId(), -1));
+    service.updateElevatorLocation(new ElevatorUpdateDto(-1), elevator.getId());
     final var elevatorTwo = service.requestElevator(callDto);
 //    Update the location of our elevators to floor 1 and 2 (both are in use).
-    service.updateElevatorLocation(new ElevatorUpdateDto(elevatorTwo.getId(), -1));
-    service.updateElevatorLocation(new ElevatorUpdateDto(elevatorTwo.getId(), -2));
+    service.updateElevatorLocation(new ElevatorUpdateDto(-1), elevatorTwo.getId());
+    service.updateElevatorLocation(new ElevatorUpdateDto(-2), elevatorTwo.getId());
 //    Call elevator on floor 1 going up to floor 6. Should return elevator 0 (it is still on floor 1)
     final var elevatorThree = service.requestElevator(new ElevatorCallDto(-6, -1));
 
@@ -111,12 +111,11 @@ class ElevatorServiceImplTest {
   void updateElevatorLocationTests() {
     var elevatorId = 1;
     var updateDto = new ElevatorUpdateDto();
-    updateDto.setElevatorId(1);
     updateDto.setCurrentFloor(3);
     final var elevator = service.listElevators().get(elevatorId);
     elevator.getStopFloors().add(5);
 
-    service.updateElevatorLocation(updateDto);
+    service.updateElevatorLocation(updateDto, 1);
 
     assertEquals(elevator.getCurrentFloor(), 3);
   }
@@ -124,19 +123,17 @@ class ElevatorServiceImplTest {
   @Test
   void updateElevatorThrowsExceptionOnInvalidElevator() {
     var updateDto = new ElevatorUpdateDto();
-    updateDto.setElevatorId(100);
     updateDto.setCurrentFloor(3);
 
-    assertThrows(InvalidElevatorException.class, () -> service.updateElevatorLocation(updateDto));
+    assertThrows(InvalidElevatorException.class, () -> service.updateElevatorLocation(updateDto, 100));
   }
 
   @Test
   void updateElevatorThrowsExceptionOnInvalidFloor() {
     var updateDto = new ElevatorUpdateDto();
-    updateDto.setElevatorId(100);
     updateDto.setCurrentFloor(-80);
 
-    assertThrows(InvalidElevatorFloorException.class, () -> service.updateElevatorLocation(updateDto));
+    assertThrows(InvalidElevatorFloorException.class, () -> service.updateElevatorLocation(updateDto, 100));
   }
 
   @Test

@@ -60,11 +60,11 @@ public class ElevatorServiceImpl implements ElevatorService {
   }
 
   @Override
-  public void updateElevatorLocation(ElevatorUpdateDto updateDto) {
+  public void updateElevatorLocation(ElevatorUpdateDto updateDto, int elevatorId) {
     validateFloor(updateDto.getCurrentFloor());
-    validateElevator(updateDto.getElevatorId());
+    validateElevator(elevatorId);
 
-    final var elevator = elevatorMap.get(updateDto.getElevatorId());
+    final var elevator = elevatorMap.get(elevatorId);
     elevatorOnFloorMap.get(elevator.getCurrentFloor()).remove(elevator);
     elevator.updateToFloor(updateDto.getCurrentFloor());
     elevatorOnFloorMap.get(updateDto.getCurrentFloor()).add(elevator);

@@ -48,13 +48,13 @@ class ElevatorControllerTest {
   @Test
   void updateElevatorTests() {
     final var elevatorUpdateDto = new ElevatorUpdateDto();
-    elevatorUpdateDto.setElevatorId(1);
+    final var id = 1;
 
-    final var response = controller.updateElevator(elevatorUpdateDto);
+    final var response = controller.updateElevator(id, elevatorUpdateDto);
 
     assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertEquals(elevatorUpdateDto.getElevatorId(), response.getBody().getElevatorId());
-    Mockito.verify(service).updateElevatorLocation(elevatorUpdateDto);
+    assertEquals(id, response.getBody().getElevatorId());
+    Mockito.verify(service).updateElevatorLocation(elevatorUpdateDto, id);
   }
 
   @Test
