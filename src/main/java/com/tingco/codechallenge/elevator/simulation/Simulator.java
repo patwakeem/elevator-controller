@@ -109,35 +109,39 @@ public class Simulator implements ApplicationRunner {
     log.info("### SIMULATION COMPLETE ###");
 
     if (!reportPath.isBlank()) {
-      final var reportDate = Instant.now().toString();
-      final var mapper = new ObjectMapper();
-      final var simulationReport = new SimulationReport(
-          errors,
-          simulationLoops,
-          calls,
-          elevatorMovePerStep,
-          reportDate,
-          controller.listElevators().getBody()
-      );
-      final var reportFile = Path.of(reportPath, "elevator-report-" + reportDate + ".json");
-
-      try {
-        log.info("Writing report to {}", reportFile);
-        var prettyReport = mapper.writerWithDefaultPrettyPrinter()
-            .writeValueAsBytes(simulationReport);
-
-        Files.write(
-            reportFile,
-            prettyReport
-        );
-      } catch (Exception e) {
-        log.error("Could not write report file.", e);
-      }
+      writeReport(errors, calls);
     }
 
     if (exitWhenDone) {
       log.info("### EXITING ###");
       context.close();
+    }
+  }
+
+  private void writeReport(int errors, int calls) {
+    final var reportDate = Instant.now().toString();
+    final var mapper = new ObjectMapper();
+    final var simulationReport = new SimulationReport(
+        errors,
+        simulationLoops,
+        calls,
+        elevatorMovePerStep,
+        reportDate,
+        controller.listElevators().getBody()
+    );
+    final var reportFile = Path.of(reportPath, "elevator-report-" + reportDate + ".json");
+
+    try {
+      log.info("Writing report to {}", reportFile);
+      var prettyReport = mapper.writerWithDefaultPrettyPrinter()
+          .writeValueAsBytes(simulationReport);
+
+      Files.write(
+          reportFile,
+          prettyReport
+      );
+    } catch (Exception e) {
+      log.error("Could not write report file.", e);
     }
   }
 
