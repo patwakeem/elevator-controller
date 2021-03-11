@@ -2,7 +2,6 @@ package com.tingco.codechallenge.elevator.configuration;
 
 import com.tingco.codechallenge.elevator.exception.ConfigurationException;
 import com.tingco.codechallenge.elevator.model.Elevator;
-import com.tingco.codechallenge.elevator.model.dto.ElevatorCallDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,11 +35,6 @@ public class ElevatorConfiguration {
 
     map.get(0).addAll(elevators);
     return map;
-  }
-
-  @Bean
-  public ConcurrentHashMap<Integer, List<ElevatorCallDto>> constructRequestOnFloorMap() {
-    return new ConcurrentHashMap<>();
   }
 
   @Bean
